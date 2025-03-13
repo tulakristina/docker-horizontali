@@ -17,7 +17,7 @@ HTML_TEMPLATE = """
     <form action="/" method="post" enctype="multipart/form-data">
       <input type="file" name="source_file" accept=".xlsx" required>
       <br><br>
-      <input type="submit" value="Pateikti ataskaitą">
+      <input type="submit" value="Atsisiųsti ataskaitą">
     </form>
   </body>
 </html>
@@ -35,7 +35,8 @@ def index():
         try:
             source_wb = load_workbook(source_file, data_only=True)
             source_ws = source_wb.active
-            values = [source_ws[f"D{row}"].value for row in range(2, 9)]
+            values1 = [source_ws[f"D{row}"].value for row in range(2, 9)]
+            values2 = [source_ws[f"D{row}"].value for row in range(10, 12)]
         except Exception as e:
             return f":( Nepavyko nuskaityti failo: {e}", 500
 
@@ -43,10 +44,13 @@ def index():
         try:
             template_wb = load_workbook("tuscias.xlsx")
             template_ws = template_wb.active
-            target_row = 39
-            start_col = 1  # Column A is 1
-            for index, value in enumerate(values):
-                template_ws.cell(row=target_row, column=start_col + index).value = value
+
+            for index, value in enumerate(values1):
+                template_ws.cell(row=39, column= 1 + index).value = value # target_row =39 start_col = 1  # Column A is 1
+
+            for index, value in enumerate(values2):
+                template_ws.cell(row=48, column= 2 + index).value = value # target_row =48 start_col = 2  # Column A is 1
+
         except Exception as e:
             return f"Error processing template: {e}", 500
 
