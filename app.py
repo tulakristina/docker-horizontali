@@ -63,41 +63,66 @@ def index():
             values19_2 = [source_ws[f"H{row}"].value for row in [43, 44, 42]] 
             values19 = [f"{g}-{h}" for g, h in zip(values19_1, values19_2)]
 
-            values21_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values21_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values21_1 = [source_ws[f"G{row}"].value for row in [49, 48]] 
+            values21_2 = [source_ws[f"H{row}"].value for row in [49, 48]] 
             values21 = [f"{g}-{h}" for g, h in zip(values21_1, values21_2)]
 
-            values22_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values22_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values22_1 = [source_ws[f"G{row}"].value for row in [51, 50]] 
+            values22_2 = [source_ws[f"H{row}"].value for row in [51, 50]] 
             values22 = [f"{g}-{h}" for g, h in zip(values22_1, values22_2)]
 
-            values23_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values23_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values23_1 = [source_ws[f"G{row}"].value for row in [53, 52]] 
+            values23_2 = [source_ws[f"H{row}"].value for row in [53, 52]] 
             values23 = [f"{g}-{h}" for g, h in zip(values23_1, values23_2)]
 
-            values24_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values24_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values24_1 = [source_ws[f"G{row}"].value for row in [55, 54]] 
+            values24_2 = [source_ws[f"H{row}"].value for row in [55, 54]] 
             values24 = [f"{g}-{h}" for g, h in zip(values24_1, values24_2)]
 
-            values25_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values25_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values25_1 = [source_ws[f"G{row}"].value for row in [57, 56]] 
+            values25_2 = [source_ws[f"H{row}"].value for row in [57, 56]] 
             values25 = [f"{g}-{h}" for g, h in zip(values25_1, values25_2)]
 
-            values27_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values27_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values21_25 = [values21, values22, values23, values24, values25]
+
+            
+
+            values27_1 = [source_ws[f"G{row}"].value for row in [62, 61]] 
+            values27_2 = [source_ws[f"H{row}"].value for row in [62, 61]] 
             values27 = [f"{g}-{h}" for g, h in zip(values27_1, values27_2)]
 
-            values28_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values28_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values28_1 = [source_ws[f"G{row}"].value for row in [64, 63]] 
+            values28_2 = [source_ws[f"H{row}"].value for row in [64, 63]] 
             values28 = [f"{g}-{h}" for g, h in zip(values28_1, values28_2)]
 
-            values29_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values29_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values29_1 = [source_ws[f"G{row}"].value for row in [66, 65]] 
+            values29_2 = [source_ws[f"H{row}"].value for row in [66, 65]] 
             values29 = [f"{g}-{h}" for g, h in zip(values29_1, values29_2)]
 
-            values30_1 = [source_ws[f"G{row}"].value for row in [49, 50, 48]] 
-            values30_2 = [source_ws[f"H{row}"].value for row in [49, 50, 48]] 
+            values30_1 = [source_ws[f"G{row}"].value for row in [68, 67]] 
+            values30_2 = [source_ws[f"H{row}"].value for row in [68, 67]] 
             values30 = [f"{g}-{h}" for g, h in zip(values30_1, values30_2)]
+
+            # kitas
+            values31_43 = [source_ws[f"D{row}"].value for row in range(69, 82)]
+
+            values44_57 = [source_ws[f"D{row}"].value for row in range(82, 96)]
+
+            values58_67 = [source_ws[f"D{row}"].value for row in range(96, 106)]
+
+            values68_74 = [source_ws[f"D{row}"].value for row in range(106, 113)]
+
+            #values75_87 = [source_ws[f"D{row}"].value for row in range(113, 126)]
+
+
+            values75_87 = []
+            for row in range(113, 126):
+              cell_value = source_ws[f"D{row}"].value
+              try:
+                  values75_87.append(round(float(cell_value), 2))
+              except (TypeError, ValueError):
+                  values75_87.append(0.00)
+
 
 
         except Exception as e:
@@ -123,58 +148,114 @@ def index():
               #if index == 0:  # Example: Re-merge for first value
               template_ws.merge_cells(start_row=row, start_column=col, end_row=row, end_column=col+1)
 
-              for index, value in enumerate(values10):
-                col = 6 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value 
+            for index, value in enumerate(values10):
+              col = 6 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value 
 
-              for index, value in enumerate(values12):
-                col = 8 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value 
+            for index, value in enumerate(values12):
+              col = 8 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value 
+            
+            for index, value in enumerate(values14):
+              col = 10 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values16):
+              col = 12 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values18):
+              col = 14 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+          # nelyginiai
+
+            for index, value in enumerate(values11):
+              col = 7 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values13):
+              col = 9 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values15):
+              col = 11 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values17):
+              col = 13 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            for index, value in enumerate(values19):
+              col = 15 
+              row = 48 + index
+              template_ws.cell(row=row, column= col).value = value
+
+            # El. dokumentų fondas
+
+            for index in range(5):
+              col = 5 + index
+              template_ws.cell(row=58, column= col).value = values21_25[index][0]
+              template_ws.cell(row=59, column= col).value = 0
+              template_ws.cell(row=60, column= col).value = values21_25[index][1]
+
+            for index in range(4):
+              col = 11 + index
+              template_ws.cell(row=58, column= col).value = values21_25[index][0]
+              template_ws.cell(row=59, column= col).value = 0
+              template_ws.cell(row=60, column= col).value = values21_25[index][1]  
+
+            # istekliai ir paslaugos
+
+            for index, value in enumerate(values31_43):
+              template_ws.cell(row=69, column= 1 + index).value = value
+
+            for index, value in enumerate(values44_57):
+              template_ws.cell(row=79, column= 1 + index).value = value  
               
-              for index, value in enumerate(values14):
-                col = 10 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
+            col_index = 1
 
-              for index, value in enumerate(values16):
-                col = 12 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
+            for value in values58_67:
+              row = 87
+              merged = False
+              for merged_range in template_ws.merged_cells.ranges:
+                if template_ws.cell(row=row, column=col_index).coordinate in merged_range:
+                  template_ws.unmerge_cells(str(merged_range))  # Unmerge before writing
+                  merged = True
+                  break
+              template_ws.cell(row=row, column= col_index).value = value  
+              if merged:
+                template_ws.merge_cells(start_row=row, start_column=col_index, end_row=row, end_column=col_index+1)
+              col_index += 2 if merged else 1
 
-              for index, value in enumerate(values18):
-                col = 14 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
+            # darbuotojai
+            col_index = 1
+            for value in values68_74:
+              row= 96
+              merged = False
+              for merged_range in template_ws.merged_cells.ranges:
+                if template_ws.cell(row=row, column=col_index).coordinate in merged_range:
+                  template_ws.unmerge_cells(str(merged_range))  # Unmerge before writing
+                  merged=True
+                  break
+              template_ws.cell(row=row, column= col_index).value = value
+              if merged:
+                template_ws.merge_cells(start_row=row, start_column=col_index, end_row=row, end_column=col_index+1)
+              col_index += 2 if merged else 1
 
-            # nelyginiai
+              #  finansavimas ir išlaidos
+            for index, value in enumerate(values75_87):
+              template_ws.cell(row=107, column= 1 + index).value = value
 
-              for index, value in enumerate(values11):
-                col = 7 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
-
-              for index, value in enumerate(values13):
-                col = 9 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
-
-              for index, value in enumerate(values15):
-                col = 11 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
-
-              for index, value in enumerate(values17):
-                col = 13 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
-
-              for index, value in enumerate(values19):
-                col = 15 
-                row = 48 + index
-                template_ws.cell(row=row, column= col).value = value
-                
 
         except Exception as e:
             return f"Error processing template: {e}", 500
