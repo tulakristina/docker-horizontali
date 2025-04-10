@@ -10,7 +10,7 @@ HTML_TEMPLATE = """
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Horizontali ataskaita</title>
+    <title>Horizontalios ataskaitos kepėja</title>
   </head>
   <body>
     <h1>Įkelkite duomenis iš VDA sistemos excel formatu</h1>
@@ -42,16 +42,30 @@ def index():
             #           cell.value = None
 
 
-            values1 = [source_ws[f"D{row}"].value for row in range(2, 9)]
+            values1 = [
+              #source_ws[f"D{row}"].value for row in range(2, 9)
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in range(2, 9)
+            ]
             values8 = [
                 int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
                 for row in [10, 11, 9]
             ]
-            values10 = [source_ws[f"D{row}"].value for row in [16, 17, 15]] # 10
-            values12 = [source_ws[f"D{row}"].value for row in [22, 23, 21]] # 12
-            values14 = [source_ws[f"D{row}"].value for row in [28, 29, 27]] # 14
-            values16 = [source_ws[f"D{row}"].value for row in [34, 35, 33]] # 16
-            values18 = [source_ws[f"D{row}"].value for row in [40, 41, 39]] # 18
+            values10 = [
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in [16, 17, 15]] # 10
+            values12 = [
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in [22, 23, 21]] # 12
+            values14 = [
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in [28, 29, 27]] # 14
+            values16 = [
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in [34, 35, 33]] # 16
+            values18 = [
+                int(source_ws[f"D{row}"].value) if source_ws[f"D{row}"].value else 0
+                for row in [40, 41, 39]] # 18
 
             # reiksmes su reziais
 
@@ -123,6 +137,7 @@ def index():
                 except (TypeError, ValueError):
                     return 0
 
+
             values11_1 = [safe_int(source_ws[f"G{row}"].value) for row in [19, 20, 18]]
             values11_2 = [safe_int(source_ws[f"H{row}"].value) for row in [19, 20, 18]]
             values11 = [f"{g}-{h}" for g, h in zip(values11_1, values11_2)]
@@ -183,15 +198,22 @@ def index():
 
             values27_30 = [values27, values28, values29, values30]
 
-            # kitas
-            values31_43 = [source_ws[f"D{row}"].value for row in range(69, 82)]
+            # # kitas
+            values31_43 = [safe_int(source_ws[f"D{row}"].value) for row in range(69, 82)]
 
-            values44_57 = [source_ws[f"D{row}"].value for row in range(82, 96)]
+            values44_57 = [safe_int(source_ws[f"D{row}"].value) for row in range(82, 96)]
 
-            values58_67 = [source_ws[f"D{row}"].value for row in range(96, 106)]
+            values58_67 = [safe_int(source_ws[f"D{row}"].value) for row in range(96, 106)]
 
-            values68_74 = [source_ws[f"D{row}"].value if i == 0 else int(source_ws[f"D{row}"].value) 
-               for i, row in enumerate(range(106, 113))]
+            def safe_int(value):
+                try:
+                    return int(value)
+                except (TypeError, ValueError):
+                    return 0
+
+            value68 = [source_ws[f"D{106}"].value]
+
+            values69_74 = [safe_int(source_ws[f"D{row}"].value) for row in range(107, 113)]
 
             values75_87 = []
             for row in range(113, 126):
@@ -201,6 +223,27 @@ def index():
                     values75_87.append(formatted_value)
                 except (TypeError, ValueError):
                     values75_87.append("0.00")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             # # # 9
             # # #values9_g_min = min(source_ws[f"G{row}"].value for row in [19, 25, 31, 37, 43]) # gauta
@@ -343,7 +386,14 @@ def index():
               row = 48 + index
               template_ws.cell(row=row, column= col).value = value
 
-            # # 9 reziai, per kelis langelius
+
+
+
+
+
+
+
+            # #NEVEIKIA 9 reziai, per kelis langelius
 
             # for index, value in enumerate(values9):
             #   col = 4 
@@ -385,6 +435,10 @@ def index():
             # template_ws.cell(row=59, column= 10).value = 0
             # template_ws.cell(row=60, column= 10).value = values26[1]  
 
+            # neveikia, PALIKT UZKOMENTUOTA
+
+
+
             # El. dokumentų fondas
 
             for index in range(5):
@@ -423,8 +477,11 @@ def index():
               col_index += 2 if merged else 1
 
             # darbuotojai
-            col_index = 1
-            for value in values68_74:
+
+            template_ws.cell(row=96, column= 1).value = value68[0]
+
+            col_index = 2
+            for value in values69_74:
               row= 96
               merged = False
               for merged_range in template_ws.merged_cells.ranges:
@@ -437,7 +494,7 @@ def index():
                 template_ws.merge_cells(start_row=row, start_column=col_index, end_row=row, end_column=col_index+1)
               col_index += 2 if merged else 1
 
-              #  finansavimas ir išlaidos
+            #   #  finansavimas ir išlaidos
             for index, value in enumerate(values75_87):
               template_ws.cell(row=107, column= 1 + index).value = value
 
